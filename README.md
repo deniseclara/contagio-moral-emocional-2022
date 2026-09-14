@@ -97,15 +97,15 @@ A coleta não gravou nome nem perfil de quem respondeu. No texto das respostas, 
 
 **A carga moral é presença, e não proporção.** Três indicadores binários disjuntos, um por eixo. A operacionalização segue a de Dantas (2023) sobre o mesmo dicionário.
 
-**Vício e virtude contam juntos.** Uma publicação aborda um fundamento quando contém qualquer termo dele, seja do polo da virtude, seja do polo do vício. A medida registra o repertório acionado, não a polaridade do juízo.
+**Vício e virtude contam juntos.** Uma publicação aborda um fundamento quando contém qualquer termo dele, seja do polo da virtude, seja do polo do vício. A medida indica se o fundamento aparece no texto, e não se ele é elogiado ou condenado.
 
 ## Reprodutibilidade
 
-A semente está fixa nas etapas estocásticas. Ainda assim, dois pontos podem deslocar resultados entre máquinas.
+O agrupamento temático tem uma parte aleatória. Para que ele dê o mesmo resultado a cada execução, o código fixa o valor inicial dessa parte aleatória, chamado de semente. Mesmo assim, os resultados podem mudar de um computador para outro em dois pontos.
 
-O agrupamento temático **não reproduz exatamente entre versões de biblioteca**. A redução de dimensão que antecede o agrupamento é sensível a versão, e a semente fixa não atravessa essa fronteira. Uma execução de julho de 2026 encontrou treze grupos, e a de agosto, na mesma máquina e com a mesma semente, encontrou dez. A dissertação adota a partição de **dez grupos**, que é a distribuída em `dados/classificados/`. A de treze permanece em `dados/brutos/topicos_referencia.csv`.
+O primeiro é o **agrupamento temático, que muda com a versão das bibliotecas instaladas**. Antes de formar os grupos, o BERTopic reduz o número de dimensões com que cada texto é representado. Essa redução dá resultados diferentes em versões diferentes da biblioteca, mesmo com a semente fixa. Uma execução de julho de 2026 encontrou treze grupos. Outra, de agosto, no mesmo computador e com a mesma semente, encontrou dez. A dissertação usa os **dez grupos**, que são os de `dados/classificados/`. Os treze estão em `dados/brutos/topicos_referencia.csv`, para comparação.
 
-O classificador de valência é determinístico, mas versões diferentes do modelo publicado podem devolver probabilidades ligeiramente distintas. A etapa 7 usa tolerância explícita e mostra o valor obtido ao lado do declarado.
+O segundo é o **classificador de valência**. Para um mesmo texto, ele devolve sempre o mesmo resultado. Versões diferentes do modelo, porém, podem devolver probabilidades um pouco diferentes. Por isso a etapa 7 aceita uma pequena margem e mostra o valor obtido ao lado do valor declarado na dissertação.
 
 ## Instrumentos
 
@@ -121,7 +121,7 @@ O **código**, em `codigo/`, está sob licença MIT. Ver `LICENCA-CODIGO.md`.
 
 Os **dados**, em `dados/`, estão sob **CC BY-NC-SA 4.0**. Ver `LICENCA-DADOS.md`.
 
-A licença dos dados não foi escolhida, foi herdada. O ITED-Br é distribuído sob CC BY-NC-SA 4.0, e a cláusula de CompartilhaIgual obriga qualquer derivado a manter a mesma licença. Uso comercial está vedado e a citação do artigo do ITED-Br é obrigatória.
+Os dados seguem a licença do ITED-Br, a CC BY-NC-SA 4.0. Ela proíbe o uso comercial, exige a citação do artigo do ITED-Br e obriga qualquer trabalho derivado a usar a mesma licença.
 
 ## Referências dos dados e instrumentos
 
