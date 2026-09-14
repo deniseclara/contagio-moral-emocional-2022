@@ -95,7 +95,7 @@ A coleta não gravou nome nem perfil de quem respondeu. No texto das respostas, 
 
 ## Duas decisões de medida
 
-**A carga moral é presença, e não proporção.** Três indicadores binários disjuntos, um por eixo. A operacionalização segue a de Dantas (2023) sobre o mesmo dicionário.
+**A carga moral é presença, e não proporção.** Para cada eixo, individualizante, vinculante e moralidade geral, a publicação recebe 1 se tem ao menos um termo dele e 0 se não tem. A operacionalização segue a de Dantas (2023) sobre o mesmo dicionário.
 
 **Vício e virtude contam juntos.** Uma publicação aborda um fundamento quando contém qualquer termo dele, seja do polo da virtude, seja do polo do vício. A medida indica se o fundamento aparece no texto, e não se ele é elogiado ou condenado.
 
@@ -105,7 +105,7 @@ O agrupamento temático tem uma parte aleatória. Para que ele dê o mesmo resul
 
 O primeiro é o **agrupamento temático, que muda com a versão das bibliotecas instaladas**. Antes de formar os grupos, o BERTopic reduz o número de dimensões com que cada texto é representado. Essa redução dá resultados diferentes em versões diferentes da biblioteca, mesmo com a semente fixa. Uma execução de julho de 2026 encontrou treze grupos. Outra, de agosto, no mesmo computador e com a mesma semente, encontrou dez. A dissertação usa os **dez grupos**, que são os de `dados/classificados/`. Os treze estão em `dados/brutos/topicos_referencia.csv`, para comparação.
 
-O segundo é o **classificador de valência**. Para um mesmo texto, ele devolve sempre o mesmo resultado. Versões diferentes do modelo, porém, podem devolver probabilidades um pouco diferentes. Por isso a etapa 7 aceita uma pequena margem e mostra o valor obtido ao lado do valor declarado na dissertação.
+O segundo é o **classificador de valência**. Para um mesmo texto, ele devolve sempre o mesmo resultado. Versões diferentes do modelo, porém, podem devolver probabilidades um pouco diferentes.
 
 ## Instrumentos
 
