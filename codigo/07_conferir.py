@@ -71,9 +71,9 @@ def main():
     checa("3.3", "publicações com zero retweets", int((cp.rt == 0).sum()), 0)
 
     # -------------------------------------------------------------- 3.6.1
-    checa("3.6.1", "assimetria dos retweets, escala original", cp.rt.skew(), 3.49, .02)
+    checa("3.6.1", "assimetria dos retweets, escala original", cp.rt.skew(), 3.50, .02)
     checa("3.6.1", "curtose dos retweets, escala original",
-          cp.rt.kurtosis() + 3, 19.49, .1)
+          cp.rt.kurtosis() + 3, 19.52, .1)
     lg = np.log(cp.rt)
     checa("3.6.1", "assimetria dos retweets, escala logarítmica", lg.skew(), 0.50, .02)
     checa("3.6.1", "curtose dos retweets, escala logarítmica",
@@ -124,8 +124,8 @@ def main():
             checa("3.4.4", f"percentual nos {rot}", 100 * len(s) / len(tp), alvo, .1, "%")
 
     # ---------------------------------------------------------------- 3.5
-    cal = list(pd.read_csv(os.path.join(SAIDAS, "quadro_07_eventos.csv")).Data[:11]) \
-        if os.path.exists(os.path.join(SAIDAS, "quadro_07_eventos.csv")) else []
+    cal = list(pd.read_csv(os.path.join(SAIDAS, "quadro_04_eventos.csv")).Data[:11]) \
+        if os.path.exists(os.path.join(SAIDAS, "quadro_04_eventos.csv")) else []
     if cal:
         dentro = cp[cp.dia.isin(cal)]; fora = cp[~cp.dia.isin(cal)]
         checa("3.5", "publicações em dia de evento",

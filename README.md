@@ -56,13 +56,15 @@ Dois campos dessa tabela decidem quem entra no corpus, e nenhum dos dois está n
 
 `dados/brutos/respostas/respostas_coletadas.csv` traz as respostas recebidas, com as colunas `resposta_id`, `tweet_pai`, `candidato`, `texto`, `data` e `erro`. São 268.699 linhas de tentativa de recuperação, das quais 48.124 são respostas válidas em 2.407 publicações. `respostas_ids.csv` repete só os identificadores.
 
+O desenho previa vinte respostas por publicação. Eram elegíveis as publicações com pelo menos vinte identificadores de resposta no ITED-Br, e a coleta repunha cada resposta indisponível por outra da mesma publicação, até completar vinte válidas ou atingir cinquenta tentativas. Das 2.407 publicações, 2.390 têm vinte respostas, doze, todas de Ciro Gomes, têm de catorze a dezenove, e cinco têm 22 ou 23, porque duas rodadas de coleta completaram essas publicações ao mesmo tempo.
+
 `dados/brutos/topicos_referencia.csv` guarda uma partição temática alternativa, de treze grupos (ver Reprodutibilidade).
 
 `dicionarios/mfd_ptbr_alpha.dic` é o Moral Foundations Dictionary em português brasileiro (CARVALHO et al., 2020), com setecentos termos em onze categorias.
 
 ### Classificados
 
-`dados/classificados/publicacoes_classificadas.csv` tem uma linha por publicação do corpus, N = 2.716. Traz o conteúdo e o engajamento, as probabilidades de valência, a intensidade e a assimetria emocional, a contagem de termos de cada uma das onze categorias do dicionário, os três indicadores binários de carga moral e o grupo temático.
+`dados/classificados/publicacoes_classificadas.csv` tem uma linha por publicação do corpus, N = 2.716. Traz o conteúdo e o engajamento, as probabilidades de valência, a intensidade emocional e a negatividade relativa, a contagem de termos de cada uma das onze categorias do dicionário, os três indicadores binários de carga moral e o grupo temático.
 
 `dados/classificados/respostas_classificadas.csv` tem uma linha por resposta, N = 48.124, em 2.407 publicações. Traz o texto e as mesmas medidas.
 
@@ -70,7 +72,7 @@ Dois campos dessa tabela decidem quem entra no corpus, e nenhum dos dois está n
 |---|---|
 | `p_pos`, `p_neg`, `p_neu` | probabilidades do classificador de valência |
 | `intensidade` | `p_pos + p_neg`, de 0 a 1 |
-| `assimetria` | `p_neg − p_pos`, de −1 a 1. Positivo indica predomínio negativo |
+| `assimetria` | `p_neg − p_pos`, de −1 a 1. Na dissertação, chama-se negatividade relativa. Valores positivos indicam predomínio do conteúdo negativo |
 | `n_tokens` | tokens depois da limpeza |
 | `mfd_*` | termos do dicionário em cada uma das onze categorias |
 | `n_ind`, `n_vin`, `n_ger` | termos individualizantes (cuidado e justiça), vinculantes (lealdade, autoridade e santidade) e de moralidade geral |

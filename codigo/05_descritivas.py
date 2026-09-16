@@ -5,12 +5,14 @@ ETAPA 5 — Tabelas e quadros descritivos do capítulo 3.
 Gera, em saidas/DESCRITIVAS.md e em arquivos csv separados:
 
   Tabela 1  construção do corpus                       (3.2)
-  Tabela 2  estatísticas das medidas de engajamento    (3.3)
-  Tabela 3  engajamento por candidato                  (3.3)
-  Tabela 4  fundamentos morais nas publicações         (3.4.3)
-  Tabela 5  fundamentos morais nas respostas           (3.4.3)
-  Quadro 6  os dez grupos temáticos                    (3.4.4)
-  Quadro 7  datas de maior repercussão                 (3.5)
+  Tabela 2  engajamento por candidato                  (3.3)
+  Tabela 3  fundamentos morais nas publicações         (3.4.3)
+  Tabela 4  fundamentos morais nas respostas           (3.4.3)
+  Quadro 3  os dez grupos temáticos                    (3.4.4)
+  Quadro 4  datas de maior repercussão                 (3.5)
+
+A numeração segue o capítulo 3 revisado em 16/09/2026, em que as antigas Tabelas
+2 e 3 viraram uma só e os quadros passaram a ser numerados de 1 a 5.
 
 Lê a classificação de dados/derivados/ quando as etapas 2 a 4 foram executadas
 e, se não foram, a que acompanha o repositório em dados/classificados/.
@@ -80,34 +82,27 @@ def main():
           "tabela_01_corpus.csv")
 
     # ------------------------------------------------------------- Tabela 2
-    med = {"Retweets": "rt", "Curtidas": "likes", "Respostas": "replies"}
-    t2 = pd.DataFrame([{
-        "Medida": k,
-        "Mín.": int(cp[v].min()), "1º quartil": int(cp[v].quantile(.25)),
-        "Mediana": int(cp[v].median()), "Média": round(cp[v].mean(), 1),
-        "3º quartil": int(cp[v].quantile(.75)), "Máx.": int(cp[v].max()),
-        "Desvio-padrão": round(cp[v].std(), 1)} for k, v in med.items()])
-    bloco("Tabela 2 — Estatísticas descritivas das medidas de engajamento", t2,
-          f"Fonte: elaboração própria. N = {len(cp):,} publicações.",
+    # Uma tabela só, por candidato e no total, sobre as publicações com texto
+    # (a unidade dos modelos). Sem quartis. A mediana fica ao lado da média
+    # porque a distribuição do engajamento é muito assimétrica.
+    ct = cp[~cp.sem_texto]
+    linhas2 = []
+    for medida, col in [("Retweets", "rt"), ("Curtidas", "likes"), ("Respostas", "replies")]:
+        for i, c in enumerate(ORDEM + ["Total"]):
+            s = ct[col] if c == "Total" else ct[ct.candidato == c][col]
+            linhas2.append({"Medida": medida if i == 0 else "", "Candidato": c,
+                            "Média": int(round(s.mean())), "Desvio-padrão": int(round(s.std())),
+                            "Mediana": int(round(s.median())), "Mín.": int(s.min()),
+                            "Máx.": int(s.max())})
+    bloco("Tabela 2 — Engajamento das publicações por candidato", pd.DataFrame(linhas2),
+          f"Fonte: elaboração própria. N = {len(ct):,} publicações.",
           "tabela_02_engajamento.csv")
 
     lg = np.log(cp.rt)
     partes.append(f"\nAssimetria e curtose dos retweets: {cp.rt.skew():.2f} e "
                   f"{cp.rt.kurtosis() + 3:.2f} na escala original, "
                   f"{lg.skew():.2f} e {lg.kurtosis() + 3:.2f} na escala "
-                  f"logarítmica. Declarado na 3.6.1: 3,49 e 19,49; 0,50 e 2,62.\n")
-
-    # ------------------------------------------------------------- Tabela 3
-    g = cp.groupby("candidato")
-    t3 = pd.DataFrame({
-        "Candidato": ORDEM,
-        "Publicações": [len(g.get_group(c)) for c in ORDEM],
-        "Retweets (mediana)": [int(g.get_group(c).rt.median()) for c in ORDEM],
-        "Retweets (média)": [round(g.get_group(c).rt.mean()) for c in ORDEM],
-        "Curtidas (mediana)": [int(g.get_group(c).likes.median()) for c in ORDEM],
-        "Respostas (mediana)": [int(g.get_group(c).replies.median()) for c in ORDEM]})
-    bloco("Tabela 3 — Engajamento por candidato", t3,
-          "Fonte: elaboração própria.", "tabela_03_por_candidato.csv")
+                  f"logarítmica. Declarado na 3.6.1: assimetria 3,50 e 0,50.\n")
 
     # ------------------------------------------------------- Tabelas 4 e 5
     def repertorio(d, rot):
@@ -122,20 +117,20 @@ def main():
             linhas.append(l)
         return pd.DataFrame(linhas)
 
-    bloco("Tabela 4 — Fundamentos morais nas publicações dos candidatos",
+    bloco("Tabela 3 — Fundamentos morais nas publicações dos candidatos",
           repertorio(tp, "publicações"),
           "Fonte: elaboração própria. Percentual das publicações que trazem ao "
-          "menos um termo do fundamento.", "tabela_04_fundamentos_publicacoes.csv")
+          "menos um termo do fundamento.", "tabela_03_fundamentos_publicacoes.csv")
 
     arq_r = classificado("respostas_classificadas.csv", "respostas_classificadas.csv")
     if os.path.exists(arq_r):
         rp = pd.read_csv(arq_r, dtype={"resposta_id": str, "tweet_pai": str})
         rp["candidato"] = pd.Categorical(rp.candidato, ORDEM, ordered=True)
         t5 = repertorio(rp, "respostas").rename(columns={"Candidato": "Candidato do tweet"})
-        bloco("Tabela 5 — Fundamentos morais nas respostas recebidas", t5,
-              "Fonte: elaboração própria.", "tabela_05_fundamentos_respostas.csv")
+        bloco("Tabela 4 — Fundamentos morais nas respostas recebidas", t5,
+              "Fonte: elaboração própria.", "tabela_04_fundamentos_respostas.csv")
     else:
-        partes.append("\n## Tabela 5\n\nNão encontrei a classificação das "
+        partes.append("\n## Tabela 4\n\nNão encontrei a classificação das "
                       "respostas. Ver o README.\n")
 
     # ------------------------------------------------------------- Quadro 6
@@ -145,9 +140,9 @@ def main():
     q6["%"] = (100 * q6.Publicações / len(tp)).round(1)
     q6 = q6.rename(columns={"topico": "Grupo", "topico_rotulo": "Termos que o distinguem"})
     q6["Retweets (mediana)"] = q6["Retweets (mediana)"].astype(int)
-    bloco("Quadro 6 — Os grupos identificados no corpus",
+    bloco("Quadro 3 — Os grupos identificados no corpus",
           q6[["Grupo", "Termos que o distinguem", "Publicações", "%", "Retweets (mediana)"]],
-          "Fonte: elaboração própria.", "quadro_06_topicos.csv")
+          "Fonte: elaboração própria.", "quadro_03_topicos.csv")
 
     # ------------------------------------------------------------- Quadro 7
     linhas = []
@@ -160,12 +155,12 @@ def main():
                    "Publicações": len(fora), "Retweets (mediana)": int(fora.rt.median())})
     q7 = pd.DataFrame(linhas)
     dentro = cp[cp.dia.isin(EVENTOS)]
-    bloco("Quadro 7 — Datas de maior repercussão do período", q7,
+    bloco("Quadro 4 — Datas de maior repercussão do período", q7,
           f"Fonte: elaboração própria a partir do calendário eleitoral de 2022. "
           f"As onze datas concentram {100 * len(dentro) / len(cp):.1f}% das "
           f"publicações e têm engajamento "
           f"{100 * (dentro.rt.median() / fora.rt.median() - 1):.1f}% superior em "
-          f"mediana. Declarado na 3.5: 14,3% e 14,0%.", "quadro_07_eventos.csv")
+          f"mediana. Declarado na 3.5: 14,3% e 14,0%.", "quadro_04_eventos.csv")
 
     cab = ("# Tabelas e quadros descritivos\n\nGerado por `codigo/05_descritivas.py`. "
            "Os valores declarados na dissertação aparecem em nota abaixo de cada "
