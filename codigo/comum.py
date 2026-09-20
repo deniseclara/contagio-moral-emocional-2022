@@ -34,6 +34,9 @@ CATEGORIAS = {1: "cuidado_virtude", 2: "cuidado_vicio",
               9: "santidade_virtude", 10: "santidade_vicio",
               11: "moralidade_geral"}
 INDIVIDUALIZANTES = [1, 2, 3, 4]              # cuidado e justiça
+# No capitulo a tendencia chama-se COESIVA (Zacarias, Almeida e Modesto, 2024).
+# O nome da constante e das colunas n_vin e b_vin fica como esta, porque as
+# colunas ja estao publicadas nos CSV classificados.
 VINCULANTES = [5, 6, 7, 8, 9, 10]             # lealdade, autoridade, santidade
 GERAL = [11]
 

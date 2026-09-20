@@ -59,7 +59,7 @@ def main():
     med = pd.DataFrame([medir_moral(t, exatos, prefixos) for t in df.texto],
                        index=df.index)
     df = pd.concat([df, med], axis=1)
-    for r, c in [("individualizantes", "b_ind"), ("vinculantes", "b_vin"),
+    for r, c in [("individualizantes", "b_ind"), ("coesivos", "b_vin"),
                  ("moralidade geral", "b_ger")]:
         print(f"   usa {r:<18} {100 * df[c].mean():5.1f}%")
     algum = ((df.b_ind + df.b_vin + df.b_ger) > 0)

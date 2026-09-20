@@ -91,7 +91,7 @@ def main():
 
     # -------------------------------------------------------------- 3.4.2
     checa("3.4.2", "usam individualizantes", 100 * pc.b_ind.mean(), 15.2, .1, "%")
-    checa("3.4.2", "usam vinculantes", 100 * pc.b_vin.mean(), 25.3, .1, "%")
+    checa("3.4.2", "usam coesivos", 100 * pc.b_vin.mean(), 25.3, .1, "%")
     checa("3.4.2", "usam moralidade geral", 100 * pc.b_ger.mean(), 12.8, .1, "%")
     q = pc.b_ind + pc.b_vin + pc.b_ger
     checa("3.4.2", "usam algum indicador moral", 100 * (q > 0).mean(), 41.2, .1, "%")

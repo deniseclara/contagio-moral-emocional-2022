@@ -75,8 +75,8 @@ O desenho previa vinte respostas por publicação. Eram elegíveis as publicaç�
 | `assimetria` | `p_neg − p_pos`, de −1 a 1. Na dissertação, chama-se negatividade relativa. Valores positivos indicam predomínio do conteúdo negativo |
 | `n_tokens` | tokens depois da limpeza |
 | `mfd_*` | termos do dicionário em cada uma das onze categorias |
-| `n_ind`, `n_vin`, `n_ger` | termos individualizantes (cuidado e justiça), vinculantes (lealdade, autoridade e santidade) e de moralidade geral |
-| `b_ind`, `b_vin`, `b_ger` | presença de ao menos um termo de cada eixo, 0 ou 1 |
+| `n_ind`, `n_vin`, `n_ger` | termos da tendência individualizante (cuidado e justiça), da coesiva (lealdade, autoridade e santidade) e de moralidade geral. O sufixo `vin` é herdado do termo "vinculante", usado em versões anteriores |
+| `b_ind`, `b_vin`, `b_ger` | presença de ao menos um termo de cada tendência, 0 ou 1 |
 | `topico`, `topico_rotulo` | grupo temático e seus cinco termos mais distintivos, só nas publicações |
 | `tem_moral` | presença de qualquer termo moral, só nas respostas |
 
@@ -97,7 +97,7 @@ A coleta não gravou nome nem perfil de quem respondeu. No texto das respostas, 
 
 ## Duas decisões de medida
 
-**A carga moral é presença, e não proporção.** Para cada eixo, individualizante, vinculante e moralidade geral, a publicação recebe 1 se tem ao menos um termo dele e 0 se não tem. A operacionalização segue a de Dantas (2023) sobre o mesmo dicionário.
+**A carga moral é presença, e não proporção.** Para cada tendência, individualizante, coesiva e moralidade geral, a publicação recebe 1 se tem ao menos um termo dela e 0 se não tem. A operacionalização segue a de Dantas (2023) sobre o mesmo dicionário.
 
 **Vício e virtude contam juntos.** Uma publicação aborda um fundamento quando contém qualquer termo dele, seja do polo da virtude, seja do polo do vício. A medida indica se o fundamento aparece no texto, e não se ele é elogiado ou condenado.
 
